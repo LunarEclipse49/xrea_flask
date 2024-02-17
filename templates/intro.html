@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミリオンライブ0.1秒イントロクイズ</title>
+    <!-- <script src="{{ url_for('static', filename='main.js') }}" defer></script> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <link href="static/css/intro.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body>
+    <div class="row center">
+        <div class="col s12 m10 offset-m1">
+            <h1 class="header">ミリオンライブ<br>0.1秒イントロクイズ</h1>
+        </div>
+        <div class="col s12 m8 offset-m2">
+            <h4 class="light">A modern responsive front-end framework based on Material Design</h4>
+        </div>
+    </div>
+
+    <div class="row center">
+        <form method="POST" action="/index">
+            <button class="ctrl waves-effect waves-light btn" type="submit">次の曲</button>
+        </form>
+
+        <button class="ctrl waves-effect waves-light btn" type="submit" onclick=show_name()>答え合わせ</button>
+        <button class="ctrl waves-effect waves-light btn" type="submit" onclick=play()>再生</button>
+        <a class="ctrl waves-effect waves-light btn red" onclick=add_length()><i class="material-icons left">cloud</i>add</a>
+        <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
+        <p>songname :<span id="songname"></span></p>
+        <p>songlength :<span id="songlength">{{len | tojson}}</span></p>
+    </div>
+    
+
+    <script>
+        let playnow = 0
+        let song = {{ song | tojson}}
+        let songname = {{ songname | tojson}}
+        let len = {{ len | tojson}}
+        let music = new Audio("static/music/SideM/" + song + ".mp3")
+        let html_songname = document.getElementById('songname');
+        let songlength = document.getElementById('songlength');
+        function play(len) {
+            if (playnow == 0) {
+                playnow = 1
+                music.currentTime = 0;
+                music.play();
+                setTimeout(() => {
+                    music.pause();
+                    playnow = 0
+                }, len);
+            }
+        }
+        function add_length() {
+            len = len + 100
+            songlength.textContent = len
+            // play()
+        }
+        function show_name() {
+            html_songname.textContent = songname
+        }
+    </script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+</body>
+
+
+
+</html>

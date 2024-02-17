@@ -1,0 +1,12 @@
+h1 {
+    font-size: clamp(2.4rem, calc(2vw + 1.8rem), 3.6rem);
+}
+
+.ctrl{
+    width : 30vw;
+    height: 30vw;
+}
+.ctrls{
+    width : 15vw;
+    height: 15vw;
+}
